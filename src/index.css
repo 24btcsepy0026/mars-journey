@@ -1,0 +1,111 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: #030014;
+  color: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Performance optimizations */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Enable hardware acceleration for smoother animations */
+.hero-section,
+.launch-section,
+.space-travel-section,
+.landing-section,
+.exploration-section,
+.conclusion-section {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030014;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff6b35;
+  border-radius: 3px;
+}
+
+::selection {
+  background: #ff6b35;
+  color: #030014;
+}
+
+/* Animation for sections - simplified */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hide stars on mobile for better performance */
+@media (max-width: 768px) {
+  .star,
+  .space-star,
+  .time-particle {
+    display: none;
+  }
+}
+
+/* Optimize images */
+img {
+  max-width: 100%;
+  height: auto;
+  content-visibility: auto; /* Lazy load images */
+}
+
+/* PERFORMANCE FIXES */
+@media (max-width: 768px) {
+  .star, .space-star, .stars-container, .space-stars {
+    display: none !important;
+  }
+  
+  .launch-content, .travel-text, .landing-content, 
+  .exploration-content, .conclusion-content {
+    backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+  }
+}
+
+img {
+  content-visibility: auto;
+}

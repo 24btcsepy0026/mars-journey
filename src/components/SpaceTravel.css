@@ -1,0 +1,138 @@
+.space-travel-section {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #030014 0%, #000000 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.space-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.space-star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: starTwinkle 2s infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.travel-content {
+  max-width: 800px;
+  width: 90%;
+  z-index: 2;
+}
+
+.travel-text {
+  text-align: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.travel-title {
+  font-size: clamp(30px, 5vw, 48px);
+  color: #ff6b35;
+  margin-bottom: 20px;
+}
+
+.travel-description {
+  font-size: clamp(14px, 2vw, 18px);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.distance-tracker {
+  margin: 40px 0;
+}
+
+.tracker-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.tracker-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tracker-progress {
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b35, #ff4500);
+  border-radius: 2px;
+  animation: progressMove 3s ease infinite;
+}
+
+@keyframes progressMove {
+  0% { width: 20%; }
+  50% { width: 35%; }
+  100% { width: 20%; }
+}
+
+.tracker-status {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #ff6b35;
+  text-align: right;
+}
+
+.milestones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.milestone {
+  padding: 15px;
+  background: rgba(255, 107, 53, 0.1);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.milestone-day {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff6b35;
+  margin-bottom: 8px;
+}
+
+.milestone p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .milestones {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .travel-text {
+    padding: 25px;
+  }
+}
