@@ -11,6 +11,7 @@ body {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   background: #030014;
   color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html {
@@ -18,19 +19,10 @@ html {
 }
 
 /* Performance optimizations */
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Enable hardware acceleration for smoother animations */
-.hero-section,
-.launch-section,
-.space-travel-section,
-.landing-section,
-.exploration-section,
-.conclusion-section {
-  transform: translateZ(0);
-  backface-visibility: hidden;
+img {
+  max-width: 100%;
+  height: auto;
+  content-visibility: auto;
 }
 
 /* Custom scrollbar */
@@ -52,7 +44,7 @@ html {
   color: #030014;
 }
 
-/* Animation for sections - simplified */
+/* Section fade-in animation */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -68,44 +60,170 @@ section {
   animation: fadeInUp 0.5s ease-out;
 }
 
-/* Disable animations for users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Hide stars on mobile for better performance */
+/* Responsive optimizations */
 @media (max-width: 768px) {
-  .star,
-  .space-star,
-  .time-particle {
-    display: none;
-  }
-}
-
-/* Optimize images */
-img {
-  max-width: 100%;
-  height: auto;
-  content-visibility: auto; /* Lazy load images */
-}
-
-/* PERFORMANCE FIXES */
-@media (max-width: 768px) {
-  .star, .space-star, .stars-container, .space-stars {
+  .star, .space-star {
     display: none !important;
   }
   
-  .launch-content, .travel-text, .landing-content, 
-  .exploration-content, .conclusion-content {
+  [class*="blur"] {
     backdrop-filter: none !important;
-    background: rgba(0, 0, 0, 0.9) !important;
   }
 }
 
-img {
-  content-visibility: auto;
+/* Light mode overrides */
+[data-theme="light"] {
+  --bg-dark: #f5f5f5;
+  --bg-darker: #e0e0e0;
+  --text-light: #1a1a2e;
+}
+
+[data-theme="light"] body {
+  background: #f5f5f5;
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .hero-section {
+  background: linear-gradient(180deg, #e0e7ff, #f5f5f5);
+}
+
+[data-theme="light"] .launch-section,
+[data-theme="light"] .space-travel-section,
+[data-theme="light"] .landing-section,
+[data-theme="light"] .exploration-section,
+[data-theme="light"] .conclusion-section {
+  background: linear-gradient(180deg, #e0e7ff, #f5f5f5);
+}
+
+[data-theme="light"] .launch-content,
+[data-theme="light"] .travel-text,
+[data-theme="light"] .landing-content,
+[data-theme="light"] .exploration-content,
+[data-theme="light"] .conclusion-content {
+  background: rgba(255, 255, 255, 0.9);
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .discovery-card {
+  background: rgba(255, 107, 53, 0.1);
+}
+
+[data-theme="light"] .stat-value,
+[data-theme="light"] .launch-stats .stat-value,
+[data-theme="light"] .data-value {
+  color: #ff6b35;
+}
+
+/* Add this at the END of your index.css file */
+
+/* Light Mode Styles - Make text visible */
+[data-theme="light"] {
+  --text-primary: #1a1a2e;
+  --text-secondary: #2d3748;
+  --bg-card: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] body {
+  background: #f5f5f5;
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .hero-section {
+  background: linear-gradient(180deg, #e0e7ff, #f5f5f5);
+}
+
+[data-theme="light"] .hero-title {
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .hero-subtitle {
+  color: #2d3748;
+}
+
+[data-theme="light"] .stat-card {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(255, 107, 53, 0.3);
+}
+
+[data-theme="light"] .stat-number {
+  color: #ff6b35;
+}
+
+[data-theme="light"] .stat-name {
+  color: #4a5568;
+}
+
+[data-theme="light"] .launch-content,
+[data-theme="light"] .travel-text,
+[data-theme="light"] .landing-content,
+[data-theme="light"] .exploration-content,
+[data-theme="light"] .conclusion-content {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .launch-title,
+[data-theme="light"] .travel-title,
+[data-theme="light"] .landing-title,
+[data-theme="light"] .exploration-title,
+[data-theme="light"] .conclusion-title {
+  color: #ff6b35;
+}
+
+[data-theme="light"] .launch-description,
+[data-theme="light"] .travel-description,
+[data-theme="light"] .landing-description,
+[data-theme="light"] .exploration-description,
+[data-theme="light"] .conclusion-description {
+  color: #2d3748;
+}
+
+[data-theme="light"] .milestone,
+[data-theme="light"] .data-item,
+[data-theme="light"] .discovery-card,
+[data-theme="light"] .timeline-point {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(255, 107, 53, 0.3);
+}
+
+[data-theme="light"] .milestone p,
+[data-theme="light"] .timeline-point p {
+  color: #4a5568;
+}
+
+[data-theme="light"] .milestone-day,
+[data-theme="light"] .timeline-year {
+  color: #ff6b35;
+}
+
+[data-theme="light"] .tracker-label {
+  color: #4a5568;
+}
+
+[data-theme="light"] .tracker-status {
+  color: #ff6b35;
+}
+
+[data-theme="light"] .launch-fact,
+[data-theme="light"] .space-fact,
+[data-theme="light"] .landing-fact,
+[data-theme="light"] .conclusion-fact {
+  background: rgba(255, 107, 53, 0.1);
+  color: #2d3748;
+}
+
+[data-theme="light"] .exp-stat-number {
+  color: #ff6b35;
+}
+
+[data-theme="light"] .exp-stat-label {
+  color: #4a5568;
+}
+
+[data-theme="light"] .countdown-number {
+  color: #1a1a2e;
+}
+
+[data-theme="light"] .scroll-indicator span {
+  color: #4a5568;
 }

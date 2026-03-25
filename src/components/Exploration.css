@@ -11,129 +11,170 @@
 
 .rover-container {
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-.mars-rover {
-  font-size: 80px;
-  filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5));
-  animation: roverBounce 2s infinite;
-}
-
-@keyframes roverBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.mars-rover-img {
+  width: 75px;
+  height: 75px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.5));
+  transition: transform 0.05s linear;
 }
 
 .rover-tracks {
   width: 200px;
-  height: 4px;
+  height: 3px;
   background: linear-gradient(90deg, #8b5a2b, transparent);
-  margin-top: 20px;
-  margin-left: 40px;
+  margin-top: 15px;
+  margin-left: 35px;
   border-radius: 2px;
 }
 
 .exploration-content {
   text-align: center;
   max-width: 800px;
-  padding: 40px;
+  padding: 35px;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  border-radius: 30px;
+  backdrop-filter: blur(8px);
+  border-radius: 25px;
   margin: 20px;
 }
 
 .exploration-title {
-  font-size: clamp(30px, 5vw, 48px);
+  font-size: clamp(28px, 5vw, 44px);
   color: #ff6b35;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .exploration-description {
   font-size: clamp(14px, 2vw, 18px);
   line-height: 1.8;
-  margin-bottom: 40px;
-  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .discoveries-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .discovery-card {
-  padding: 25px;
+  padding: 20px;
   background: rgba(255, 107, 53, 0.1);
-  border-radius: 20px;
+  border-radius: 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border: 1px solid rgba(255, 107, 53, 0.3);
 }
 
 .discovery-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   background: rgba(255, 107, 53, 0.2);
-  border-color: #ff6b35;
 }
 
 .discovery-card.active {
-  background: rgba(255, 107, 53, 0.3);
+  background: rgba(255, 107, 53, 0.25);
   border-color: #ff6b35;
 }
 
 .discovery-icon {
-  font-size: 48px;
-  margin-bottom: 15px;
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 
 .discovery-name {
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 5px;
   color: #ff6b35;
 }
 
 .discovery-description {
-  font-size: 14px;
-  line-height: 1.6;
-  margin-top: 15px;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 10px;
   color: rgba(255, 255, 255, 0.9);
 }
 
+.discovery-fact {
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(255, 107, 53, 0.2);
+  border-radius: 10px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.exploration-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.exp-stat {
+  text-align: center;
+}
+
+.exp-stat-number {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff6b35;
+}
+
+.exp-stat-label {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
 .rover-button {
-  padding: 15px 40px;
-  font-size: 16px;
+  padding: 12px 35px;
+  font-size: 15px;
   background: linear-gradient(135deg, #ff6b35, #ff4500);
   border: none;
-  border-radius: 50px;
+  border-radius: 40px;
   color: white;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease;
   font-weight: bold;
 }
 
 .rover-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
 }
 
 @media (max-width: 768px) {
   .discoveries-grid {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 12px;
   }
   
-  .mars-rover {
-    font-size: 60px;
+  .mars-rover-img {
+    width: 60px;
+    height: 60px;
   }
   
   .rover-tracks {
     width: 150px;
+    margin-left: 25px;
   }
   
   .exploration-content {
-    padding: 25px;
+    padding: 20px;
+  }
+  
+  .exploration-stats {
+    gap: 20px;
+  }
+  
+  .exp-stat-number {
+    font-size: 22px;
   }
 }

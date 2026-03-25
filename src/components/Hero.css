@@ -1,5 +1,6 @@
-/* src/components/Hero.css - Remove rocket-related styles */
+/* Add/modify these styles in Hero.css */
 
+/* Adjust hero section content spacing */
 .hero-section {
   min-height: 100vh;
   background: linear-gradient(180deg, #030014 0%, #0a0a2a 100%);
@@ -10,162 +11,153 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  padding: 20px;
 }
 
-.stars-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0;
-  animation: twinkle 3s infinite;
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.2); }
-}
-
+/* Title spacing */
 .hero-title {
-  font-size: clamp(40px, 8vw, 80px);
-  margin-bottom: 20px;
+  font-size: clamp(36px, 8vw, 75px);
+  margin-bottom: 15px;
   z-index: 2;
   color: white;
   text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
-.mars-text {
-  color: #ff6b35;
-  background: linear-gradient(135deg, #ff6b35, #ff4500);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
+/* Planet container spacing */
 .planet-container {
   position: relative;
-  margin: 30px 0;
+  margin: 15px 0;
   z-index: 2;
 }
 
+/* Earth image size */
 .earth-image {
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   object-fit: cover;
   border-radius: 50%;
-  box-shadow: 0 0 40px rgba(76, 154, 255, 0.5);
-  /* Remove the glowing animation */
-  /* animation: earthGlow 3s infinite; */
+  box-shadow: 0 0 30px rgba(76, 154, 255, 0.5);
 }
 
-@keyframes earthGlow {
-  0%, 100% { box-shadow: 0 0 40px rgba(76, 154, 255, 0.5); }
-  50% { box-shadow: 0 0 60px rgba(76, 154, 255, 0.8); }
-}
-
+/* Subtitle spacing */
 .hero-subtitle {
-  font-size: clamp(16px, 2vw, 22px);
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 30px;
+  font-size: clamp(14px, 2vw, 20px);
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
   z-index: 2;
+  max-width: 600px;
+  padding: 0 20px;
 }
 
+/* Mission stats spacing */
+.mission-stats {
+  display: flex;
+  gap: 30px;
+  margin: 15px 0;
+  z-index: 2;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Countdown section */
 .countdown {
-  margin-top: 20px;
+  margin-top: 15px;
   z-index: 2;
 }
 
 .countdown-label {
-  font-size: 14px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #ff6b35;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .countdown-numbers {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   justify-content: center;
 }
 
-/* Replace complex countdown animation with simpler one */
 .countdown-number {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: bold;
   color: white;
-  /* Remove the pulse animation that causes lag */
-  /* animation: countPulse 1s infinite; */
+  text-shadow: 0 0 20px #ff6b35;
 }
 
 .countdown-number.blastoff {
   color: #ff6b35;
   font-size: 28px;
-  /* Remove the blast pulse animation */
-  /* animation: blastPulse 0.5s infinite; */
+  animation: blastPulse 0.5s infinite;
 }
 
-@keyframes countPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.2); }
-}
-
-@keyframes blastPulse {
-  0%, 100% { text-shadow: 0 0 20px #ff6b35; }
-  50% { text-shadow: 0 0 40px #ff6b35; }
-}
-
+/* Scroll indicator - FIXED SPACING */
 .scroll-indicator {
   position: absolute;
-  bottom: 40px;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   opacity: 0.7;
   animation: bounce 2s infinite;
   z-index: 2;
 }
 
 .scroll-indicator span {
-  font-size: 12px;
-  letter-spacing: 2px;
+  font-size: 10px;
+  letter-spacing: 1px;
 }
 
 .scroll-line {
   width: 2px;
-  height: 50px;
+  height: 30px;
   background: linear-gradient(to bottom, #ff6b35, transparent);
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-10px); }
+  50% { transform: translateX(-50%) translateY(-5px); }
 }
 
+/* Mobile adjustments */
 @media (max-width: 768px) {
   .earth-image {
     width: 100px;
     height: 100px;
   }
   
+  .mission-stats {
+    gap: 15px;
+  }
+  
+  .stat-card {
+    padding: 8px 12px;
+  }
+  
+  .stat-number {
+    font-size: 18px;
+  }
+  
   .countdown-number {
-    font-size: 24px;
+    font-size: 28px;
   }
   
   .countdown-number.blastoff {
-    font-size: 20px;
+    font-size: 22px;
+  }
+  
+  .scroll-indicator {
+    bottom: 20px;
+  }
+  
+  .scroll-line {
+    height: 25px;
   }
 }

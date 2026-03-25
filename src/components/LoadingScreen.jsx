@@ -12,9 +12,9 @@ export default function LoadingScreen({ onComplete }) {
           setTimeout(() => onComplete(), 500)
           return 100
         }
-        return prev + 2
+        return prev + 3
       })
-    }, 30)
+    }, 25)
 
     return () => clearInterval(interval)
   }, [onComplete])
@@ -22,7 +22,7 @@ export default function LoadingScreen({ onComplete }) {
   return (
     <div className="loading-screen">
       <div className="loading-content">
-        <div className="rocket-loader">🚀</div>
+        <div className="rocket-loader-emoji">🚀</div>
         <h1 className="loading-title">Journey to Mars</h1>
         <div className="loading-bar-container">
           <div className="loading-bar" style={{ width: `${progress}%` }}></div>

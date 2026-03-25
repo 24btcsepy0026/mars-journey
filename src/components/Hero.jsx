@@ -1,34 +1,50 @@
-import { useEffect, useRef } from "react"
-import gsap from "gsap"
+import { useEffect, useRef, useState } from "react"
 import earthImg from "../assets/earth.png"
 import "./Hero.css"
 
 export default function Hero() {
+  const [countdownActive, setCountdownActive] = useState(true)
+  const [countdownValue, setCountdownValue] = useState(3)
   const titleRef = useRef(null)
   const subtitleRef = useRef(null)
   const earthRef = useRef(null)
 
   useEffect(() => {
-    const tl = gsap.timeline()
+    // Simple entrance animation without GSAP for performance
+    const animate = async () => {
+      if (titleRef.current) {
+        titleRef.current.style.opacity = '1'
+        titleRef.current.style.transform = 'translateY(0)'
+      }
+      if (earthRef.current) {
+        earthRef.current.style.opacity = '1'
+        earthRef.current.style.transform = 'scale(1)'
+      }
+      if (subtitleRef.current) {
+        subtitleRef.current.style.opacity = '1'
+        subtitleRef.current.style.transform = 'translateY(0)'
+      }
+    }
     
-    tl.fromTo(titleRef.current,
-      { y: 100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }
-    )
-    .fromTo(earthRef.current,
-      { scale: 0, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 1, ease: "back.out(1.2)" },
-      "-=0.8"
-    )
-    .fromTo(subtitleRef.current,
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8 },
-      "-=0.4"
-    )
+    setTimeout(animate, 100)
+    
+    // Countdown timer
+    const timer = setInterval(() => {
+      setCountdownValue(prev => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          setCountdownActive(false)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    
+    return () => clearInterval(timer)
   }, [])
 
-  // Create stars
-  const stars = Array.from({ length: 30 })
+  // Reduced stars for performance
+  const stars = Array.from({ length: 40 })
 
   return (
     <section className="hero-section">
@@ -41,16 +57,15 @@ export default function Hero() {
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
-              width: `${Math.random() * 3 + 1}px`,
-              height: `${Math.random() * 3 + 1}px`,
-              animation: `twinkle ${Math.random() * 3 + 2}s infinite`,
+              width: `${Math.random() * 2 + 1}px`,
+              height: `${Math.random() * 2 + 1}px`,
               animationDelay: `${Math.random() * 5}s`
             }}
           />
         ))}
       </div>
 
-      <h1 ref={titleRef} className="hero-title">
+      <h1 ref={titleRef} className="hero-title" style={{ opacity: 0, transform: 'translateY(50px)', transition: 'all 0.8s ease' }}>
         Journey to <span className="mars-text">Mars</span>
       </h1>
 
@@ -60,20 +75,37 @@ export default function Hero() {
           src={earthImg}
           alt="Earth"
           className="earth-image"
+          style={{ opacity: 0, transform: 'scale(0)', transition: 'all 0.6s cubic-bezier(0.34, 1.2, 0.64, 1)' }}
         />
       </div>
 
-      <p ref={subtitleRef} className="hero-subtitle">
-        From Earth to the Red Planet
+      <p ref={subtitleRef} className="hero-subtitle" style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease 0.3s' }}>
+        Humanity's Greatest Adventure
       </p>
 
+      <div className="mission-stats">
+        <div className="stat-card">
+          <span className="stat-number">225M</span>
+          <span className="stat-name">KM Distance</span>
+        </div>
+        <div className="stat-card">
+          <span className="stat-number">7</span>
+          <span className="stat-name">Months Travel</span>
+        </div>
+        <div className="stat-card">
+          <span className="stat-number">-60°C</span>
+          <span className="stat-name">Surface Temp</span>
+        </div>
+      </div>
+
       <div className="countdown">
-        <span className="countdown-label">Launch in</span>
+        <span className="countdown-label">Launch Sequence</span>
         <div className="countdown-numbers">
-          <span className="countdown-number">3</span>
-          <span className="countdown-number">2</span>
-          <span className="countdown-number">1</span>
-          <span className="countdown-number blastoff">LIFT OFF!</span>
+          {countdownActive ? (
+            <span className="countdown-number">{countdownValue}</span>
+          ) : (
+            <span className="countdown-number blastoff">LIFT OFF!</span>
+          )}
         </div>
       </div>
 

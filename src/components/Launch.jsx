@@ -1,59 +1,46 @@
-import { useEffect, useRef } from "react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useEffect, useRef, useState } from "react"
 import "./Launch.css"
 
-gsap.registerPlugin(ScrollTrigger)
-
 export default function Launch() {
+  const [rocketPosition, setRocketPosition] = useState(0)
   const sectionRef = useRef(null)
-  const rocketRef = useRef(null)
-  const smokeRef = useRef(null)
-  const textRef = useRef(null)
 
   useEffect(() => {
-  // Simplified rocket animation - no smoke, shorter duration
-  gsap.to(rocketRef.current, {
-    y: -150,  // Reduced from -200
-    duration: 1,  // Reduced from 1.5
-    scrollTrigger: {
-      trigger: sectionRef.current,
-      start: "top center",
-      end: "bottom center",
-      scrub: 0.5  // Reduced from 0.8
-    }
-  })
-
-  // Text reveal - simplified
-  gsap.fromTo(textRef.current,
-    { opacity: 0 },
-    {
-      opacity: 1,
-      duration: 0.5,
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: "top 85%",
-        toggleActions: "play none none reverse"
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+        const scrollProgress = Math.max(0, Math.min(1, 1 - (rect.bottom / windowHeight)))
+        setRocketPosition(scrollProgress * 150)
       }
     }
-  )
-}, [])
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <section ref={sectionRef} className="launch-section">
       <div className="launch-pad">
-        <div ref={smokeRef} className="smoke"></div>
-        <div ref={rocketRef} className="launch-rocket">
+        <div className="smoke" style={{ opacity: rocketPosition / 100 }}></div>
+        <div 
+          className="launch-rocket-emoji"
+          style={{ transform: `translateY(-${rocketPosition}px)` }}
+        >
           🚀
         </div>
         <div className="launch-base"></div>
       </div>
 
-      <div ref={textRef} className="launch-content">
-        <h2 className="launch-title">Ignition Sequence</h2>
+      <div className="launch-content">
+        <h2 className="launch-title">🚀 Ignition Sequence</h2>
         <p className="launch-description">
           The countdown reaches zero. Engines roar to life as the rocket lifts off
           from Kennedy Space Center, carrying humanity's hopes to the Red Planet.
+          <br /><br />
+          <strong>Mission Facts:</strong> The spacecraft reaches speeds of 25,000 km/h,
+          using a combination of chemical propulsion and gravity assists to traverse
+          the 225 million kilometer journey.
         </p>
         <div className="launch-stats">
           <div className="stat">
@@ -68,6 +55,10 @@ export default function Launch() {
             <span className="stat-value">25,000</span>
             <span className="stat-label">KM/H Speed</span>
           </div>
+        </div>
+        <div className="launch-fact">
+          <span className="fact-icon">📡</span>
+          <span>Communication delay to Earth: ~20 minutes</span>
         </div>
       </div>
     </section>

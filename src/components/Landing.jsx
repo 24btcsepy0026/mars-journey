@@ -1,80 +1,58 @@
-import { useEffect, useRef } from "react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useEffect, useRef, useState } from "react"
 import marsImg from "../assets/mars.png"
 import "./Landing.css"
 
-gsap.registerPlugin(ScrollTrigger)
-
 export default function Landing() {
+  const [landerVisible, setLanderVisible] = useState(true)
   const sectionRef = useRef(null)
-  const marsRef = useRef(null)
   const landerRef = useRef(null)
-  const textRef = useRef(null)
 
   useEffect(() => {
-    // Mars approach animation
-    gsap.to(marsRef.current, {
-      scale: 1.2,
-      duration: 2,
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1
-      }
-    })
-
-    // Lander descent
-    gsap.to(landerRef.current, {
-      y: 200,
-      duration: 2,
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1,
-        onUpdate: (self) => {
-          if (self.progress > 0.8 && landerRef.current) {
-            landerRef.current.style.opacity = 0
-          }
+    const handleScroll = () => {
+      if (sectionRef.current && landerRef.current) {
+        const rect = sectionRef.current.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+        const scrollProgress = Math.max(0, Math.min(1, 1 - (rect.bottom / windowHeight)))
+        
+        if (scrollProgress > 0.7) {
+          setLanderVisible(false)
+        }
+        
+        if (landerRef.current) {
+          landerRef.current.style.transform = `translateX(-50%) translateY(${scrollProgress * 150}px)`
+          landerRef.current.style.opacity = 1 - scrollProgress
         }
       }
-    })
-
-    // Text reveal
-    gsap.fromTo(textRef.current,
-      { y: 100, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        scrollTrigger: {
-          trigger: textRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse"
-        }
-      }
-    )
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <section ref={sectionRef} className="landing-section">
       <div className="mars-container">
         <img 
-          ref={marsRef}
           src={marsImg}
           alt="Mars"
           className="mars-image"
         />
-        <div ref={landerRef} className="mars-lander">🛸</div>
+        {landerVisible && (
+          <div ref={landerRef} className="mars-lander">
+            🛸
+          </div>
+        )}
       </div>
 
-      <div ref={textRef} className="landing-content">
-        <h2 className="landing-title">Touchdown on Mars</h2>
+      <div className="landing-content">
+        <h2 className="landing-title">🔴 Touchdown on Mars</h2>
         <p className="landing-description">
           After 7 months of travel, the lander descends through the thin Martian
           atmosphere. Retro-rockets fire. Dust billows. Then... silence.
+          <br /><br />
+          <strong>Landing Facts:</strong> The "7 minutes of terror" refers to the
+          autonomous landing sequence where radio signals take 20 minutes to reach Earth,
+          meaning the lander must navigate the descent completely on its own.
         </p>
         <div className="landing-data">
           <div className="data-item">
@@ -89,6 +67,14 @@ export default function Landing() {
             <span className="data-label">Gravity</span>
             <span className="data-value">38% of Earth</span>
           </div>
+          <div className="data-item">
+            <span className="data-label">Day Length</span>
+            <span className="data-value">24h 37m</span>
+          </div>
+        </div>
+        <div className="landing-fact">
+          <span className="fact-icon">⏱️</span>
+          <span>7 Minutes of Terror - Fully autonomous landing sequence</span>
         </div>
       </div>
     </section>

@@ -7,6 +7,8 @@ import Exploration from "./components/Exploration"
 import Conclusion from "./components/Conclusion"
 import LoadingScreen from "./components/LoadingScreen"
 import ScrollProgress from "./components/ScrollProgress"
+import ThemeToggle from "./components/ThemeToggle"
+import SoundToggle from "./components/SoundToggle"
 import "./App.css"
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
+      <ThemeToggle />
+      <SoundToggle />
       <ScrollProgress />
       <Hero />
       <Launch />
@@ -27,4 +31,3 @@ function App() {
 }
 
 export default App
-
