@@ -4,6 +4,7 @@ import "./Landing.css"
 
 export default function Landing() {
   const [landerVisible, setLanderVisible] = useState(true)
+  const [landerY, setLanderY] = useState(0)
   const sectionRef = useRef(null)
   const landerRef = useRef(null)
 
@@ -14,13 +15,18 @@ export default function Landing() {
         const windowHeight = window.innerHeight
         const scrollProgress = Math.max(0, Math.min(1, 1 - (rect.bottom / windowHeight)))
         
-        if (scrollProgress > 0.7) {
-          setLanderVisible(false)
-        }
+        // UFO moves down from above Mars to the surface
+        // Starts at -30px, moves down to 150px (onto Mars surface)
+        const startY = -30
+        const endY = 150
+        const newY = startY + (scrollProgress * (endY - startY))
+        setLanderY(newY)
         
-        if (landerRef.current) {
-          landerRef.current.style.transform = `translateX(-50%) translateY(${scrollProgress * 150}px)`
-          landerRef.current.style.opacity = 1 - scrollProgress
+        // Fade out when reaching the bottom
+        if (scrollProgress > 0.85) {
+          setLanderVisible(false)
+        } else {
+          setLanderVisible(true)
         }
       }
     }
@@ -32,13 +38,23 @@ export default function Landing() {
   return (
     <section ref={sectionRef} className="landing-section">
       <div className="mars-container">
+        {/* Mars Image */}
         <img 
           src={marsImg}
           alt="Mars"
           className="mars-image"
         />
+        
+        {/* Landing UFO/Spacecraft */}
         {landerVisible && (
-          <div ref={landerRef} className="mars-lander">
+          <div 
+            ref={landerRef}
+            className="mars-lander"
+            style={{ 
+              top: `${landerY}px`,
+              opacity: Math.max(0, 1 - (landerY / 180))
+            }}
+          >
             🛸
           </div>
         )}

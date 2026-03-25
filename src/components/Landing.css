@@ -7,41 +7,105 @@
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding: 40px 20px;
 }
 
 .mars-container {
   position: relative;
   margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 320px;
+  margin-top: 40px;
 }
 
+/* Mars Image - Moved Down */
 .mars-image {
-  width: 180px;
-  height: 180px;
+  width: 220px;
+  height: 220px;
   object-fit: cover;
   border-radius: 50%;
-  box-shadow: 0 0 50px rgba(201, 79, 31, 0.5);
+  box-shadow: 0 0 60px rgba(201, 79, 31, 0.6);
   position: relative;
   z-index: 1;
+  transition: transform 0.3s ease;
+  margin-top: 80px;
 }
 
+.mars-image:hover {
+  transform: scale(1.02);
+}
+
+/* Mars Lander UFO - Positioned Above Mars */
 .mars-lander {
   position: absolute;
-  top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 45px;
-  filter: drop-shadow(0 0 20px #ff6b35);
-  animation: landerShake 0.5s infinite;
-  z-index: 2;
-  transition: all 0.05s linear;
+  font-size: 80px;
+  filter: drop-shadow(0 0 30px #ff6b35) drop-shadow(0 0 15px rgba(255, 107, 53, 0.8));
+  transition: top 0.05s linear, opacity 0.1s linear;
+  z-index: 10;
+  animation: landerShake 0.3s infinite, ufoPulse 1s infinite;
+  pointer-events: none;
+  text-shadow: 0 0 20px rgba(255, 107, 53, 0.9);
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.2), transparent);
+  border-radius: 50%;
+  padding: 10px;
+  top: -30px;
 }
 
+/* When scrolling, the UFO moves down */
+/* The JavaScript will dynamically change the top position */
+
+/* UFO Pulse Animation */
+@keyframes ufoPulse {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(255, 107, 53, 0.8);
+    filter: drop-shadow(0 0 20px #ff6b35);
+  }
+  50% {
+    text-shadow: 0 0 40px rgba(255, 107, 53, 1);
+    filter: drop-shadow(0 0 40px #ff6b35);
+  }
+}
+
+/* Shake Animation for Descent */
 @keyframes landerShake {
   0%, 100% { transform: translateX(-50%) rotate(0deg); }
-  25% { transform: translateX(-52%) rotate(2deg); }
-  75% { transform: translateX(-48%) rotate(-2deg); }
+  25% { transform: translateX(-51%) rotate(3deg); }
+  75% { transform: translateX(-49%) rotate(-3deg); }
 }
 
+/* Glow Ring Effect */
+.mars-lander::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.4), transparent);
+  border-radius: 50%;
+  z-index: -1;
+  animation: glowRing 1s infinite;
+}
+
+@keyframes glowRing {
+  0%, 100% {
+    width: 100px;
+    height: 100px;
+    opacity: 0.6;
+  }
+  50% {
+    width: 130px;
+    height: 130px;
+    opacity: 1;
+  }
+}
+
+/* Landing Content */
 .landing-content {
   text-align: center;
   max-width: 700px;
@@ -50,6 +114,7 @@
   backdrop-filter: blur(8px);
   border-radius: 25px;
   border: 1px solid rgba(255, 107, 53, 0.3);
+  margin-top: 30px;
 }
 
 .landing-title {
@@ -95,7 +160,7 @@
 
 .landing-fact {
   margin-top: 25px;
-  padding: 10px;
+  padding: 12px;
   background: rgba(255, 107, 53, 0.1);
   border-radius: 20px;
   display: inline-flex;
@@ -104,15 +169,37 @@
   font-size: 12px;
 }
 
+.fact-icon {
+  font-size: 16px;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .mars-image {
-    width: 130px;
-    height: 130px;
+    width: 160px;
+    height: 160px;
+    margin-top: 60px;
   }
   
   .mars-lander {
-    font-size: 35px;
-    top: -40px;
+    font-size: 60px;
+    top: -20px;
+  }
+  
+  .mars-lander::before {
+    width: 80px;
+    height: 80px;
+  }
+  
+  @keyframes glowRing {
+    0%, 100% {
+      width: 80px;
+      height: 80px;
+    }
+    50% {
+      width: 100px;
+      height: 100px;
+    }
   }
   
   .landing-data {
@@ -122,5 +209,23 @@
   
   .landing-content {
     padding: 20px;
+  }
+  
+  .mars-container {
+    min-height: 260px;
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mars-image {
+    width: 190px;
+    height: 190px;
+    margin-top: 70px;
+  }
+  
+  .mars-lander {
+    font-size: 70px;
+    top: -25px;
   }
 }
