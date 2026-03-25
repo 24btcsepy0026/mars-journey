@@ -7,30 +7,85 @@
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding: 40px 20px;
 }
 
 .rover-container {
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
+/* Mars Rover Image - MUCH LARGER */
 .mars-rover-img {
-  width: 75px;
-  height: 75px;
+  width: 180px;
+  height: 180px;
   object-fit: contain;
-  filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.5));
-  transition: transform 0.05s linear;
+  filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.8));
+  animation: roverBounce 2s infinite;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
 }
 
+.mars-rover-img:hover {
+  transform: scale(1.05);
+}
+
+@keyframes roverBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Rover Tracks - Wider and Centered */
 .rover-tracks {
-  width: 200px;
-  height: 3px;
-  background: linear-gradient(90deg, #8b5a2b, transparent);
-  margin-top: 15px;
-  margin-left: 35px;
-  border-radius: 2px;
+  width: 300px;
+  height: 5px;
+  background: linear-gradient(90deg, #8b5a2b, #c97e3a, #8b5a2b);
+  margin-top: 25px;
+  border-radius: 3px;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+/* Add tire marks effect */
+.rover-tracks::before,
+.rover-tracks::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  background: #5a3a1a;
+  border-radius: 5px;
+  top: -3px;
+}
+
+.rover-tracks::before {
+  left: 20%;
+}
+
+.rover-tracks::after {
+  right: 20%;
+}
+
+/* Add additional tire marks */
+.rover-tracks .tire-mark {
+  position: absolute;
+  width: 15px;
+  height: 8px;
+  background: #5a3a1a;
+  border-radius: 4px;
+  top: -2px;
+}
+
+/* Exploration Content */
 .exploration-content {
   text-align: center;
   max-width: 800px;
@@ -86,7 +141,7 @@
 }
 
 .discovery-name {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 5px;
   color: #ff6b35;
 }
@@ -150,20 +205,27 @@
   box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
 }
 
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .discoveries-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
   .mars-rover-img {
-    width: 60px;
-    height: 60px;
+    width: 130px;
+    height: 130px;
   }
   
   .rover-tracks {
-    width: 150px;
-    margin-left: 25px;
+    width: 240px;
+    height: 4px;
+  }
+  
+  .rover-tracks::before,
+  .rover-tracks::after {
+    width: 15px;
+    height: 8px;
+  }
+  
+  .discoveries-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
   
   .exploration-content {
@@ -176,5 +238,17 @@
   
   .exp-stat-number {
     font-size: 22px;
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mars-rover-img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .rover-tracks {
+    width: 270px;
   }
 }

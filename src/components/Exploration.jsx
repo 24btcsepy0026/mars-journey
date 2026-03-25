@@ -38,7 +38,7 @@ export default function Exploration() {
         const rect = sectionRef.current.getBoundingClientRect()
         const windowHeight = window.innerHeight
         const progress = Math.max(0, Math.min(1, 1 - (rect.bottom / windowHeight)))
-        setRoverX(progress * 100)
+        setRoverX(progress * 80)
       }
     }
     
